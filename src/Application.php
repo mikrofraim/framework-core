@@ -6,7 +6,7 @@ namespace Mikrofraim;
 
 class Application extends \Mikrofraim\Container\ApplicationContainer
 {
-    public static function env($key, $default = null): string|bool
+    public static function env($key, $default = null): mixed
     {
         if (!isset($_ENV[$key])) {
             return $default;
