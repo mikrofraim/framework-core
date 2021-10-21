@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1362b3d6a8da6875ff8887a58188215f",
+    "content-hash": "1cd2dfa90ab35a318ebfc6518c2a13f5",
     "packages": [
         {
             "name": "cache/adapter-common",
@@ -2190,6 +2190,53 @@
                 }
             ],
             "time": "2021-09-24T15:59:58+00:00"
+        },
+        {
+            "name": "tomrf/autowire",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tomrf/autowire.git",
+                "reference": "d683c37a8b228907327ad8c88508d2d2f53b5e63"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tomrf/autowire/zipball/d683c37a8b228907327ad8c88508d2d2f53b5e63",
+                "reference": "d683c37a8b228907327ad8c88508d2d2f53b5e63",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8",
+                "psr/container": "^1.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.1",
+                "phpstan/phpstan": "^0.12"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tomrf\\Autowire\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "helps autowire dependency injection from PSR-11 containers",
+            "homepage": "http://github.com/tomrf/autowire",
+            "keywords": [
+                "PSR-11",
+                "autowire",
+                "containers",
+                "dependency injection",
+                "di"
+            ],
+            "support": {
+                "issues": "https://github.com/tomrf/autowire/issues",
+                "source": "https://github.com/tomrf/autowire/tree/0.0.1"
+            },
+            "time": "2021-10-21T00:16:53+00:00"
         },
         {
             "name": "twig/twig",
