@@ -128,8 +128,8 @@ class ApplicationContainer implements \Psr\Container\ContainerInterface
             return $item;
         }
 
-        /** @var \Mikrofraim\Service\Autowire\Autowire */
-        $autowire = $this->get(\Mikrofraim\Service\Autowire\Autowire::class);
+        /** @var \Tomrf\Autowire\Autowire */
+        $autowire = $this->get(\Tomrf\Autowire\Autowire::class);
 
         $dependencies = $autowire->resolveDependencies(
             $this->container[$this->trueId($id)],
