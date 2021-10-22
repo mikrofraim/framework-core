@@ -17,7 +17,7 @@ class Router extends Middleware
 {
     public function __construct(
         private \Mikrofraim\ApplicationConfig $config,
-        private \Tomrf\Autowire\Autowire $autowire,
+        private \Mikrofraim\Service\Autowire\Autowire $autowire,
         private \Mikrofraim\Routes $routes,
     ) {
     }
