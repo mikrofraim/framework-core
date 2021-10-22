@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1cd2dfa90ab35a318ebfc6518c2a13f5",
+    "content-hash": "6d8999ee95a9a83111ad9b6482239a3f",
     "packages": [
         {
             "name": "cache/adapter-common",
@@ -2193,16 +2193,16 @@
         },
         {
             "name": "tomrf/autowire",
-            "version": "0.0.1",
+            "version": "0.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tomrf/autowire.git",
-                "reference": "d683c37a8b228907327ad8c88508d2d2f53b5e63"
+                "reference": "47f48e30b2565dc880748be7fb8ed0b270eac471"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tomrf/autowire/zipball/d683c37a8b228907327ad8c88508d2d2f53b5e63",
-                "reference": "d683c37a8b228907327ad8c88508d2d2f53b5e63",
+                "url": "https://api.github.com/repos/tomrf/autowire/zipball/47f48e30b2565dc880748be7fb8ed0b270eac471",
+                "reference": "47f48e30b2565dc880748be7fb8ed0b270eac471",
                 "shasum": ""
             },
             "require": {
@@ -2234,9 +2234,9 @@
             ],
             "support": {
                 "issues": "https://github.com/tomrf/autowire/issues",
-                "source": "https://github.com/tomrf/autowire/tree/0.0.1"
+                "source": "https://github.com/tomrf/autowire/tree/0.0.2"
             },
-            "time": "2021-10-21T00:16:53+00:00"
+            "time": "2021-10-22T22:48:38+00:00"
         },
         {
             "name": "twig/twig",
