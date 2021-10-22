@@ -101,7 +101,7 @@ class Router extends Middleware
                 $class = $handler[0];
                 $method = $handler[1];
 
-                $dependencies = $this->autowire->resolveDependencies($class, [
+                $dependencies = $this->autowire->resolveDependencies($class, '__construct', [
                     'Psr\Http\Message\ServerRequestInterface' => $request,
                 ]);
 
