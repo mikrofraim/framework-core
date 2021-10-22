@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d8999ee95a9a83111ad9b6482239a3f",
+    "content-hash": "70646df456d49bfd32a5521b96ddc764",
     "packages": [
         {
             "name": "cache/adapter-common",
@@ -2193,16 +2193,16 @@
         },
         {
             "name": "tomrf/autowire",
-            "version": "0.0.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tomrf/autowire.git",
-                "reference": "47f48e30b2565dc880748be7fb8ed0b270eac471"
+                "reference": "10740f65ae6879f5d810642f21cc3cccaa59f654"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tomrf/autowire/zipball/47f48e30b2565dc880748be7fb8ed0b270eac471",
-                "reference": "47f48e30b2565dc880748be7fb8ed0b270eac471",
+                "url": "https://api.github.com/repos/tomrf/autowire/zipball/10740f65ae6879f5d810642f21cc3cccaa59f654",
+                "reference": "10740f65ae6879f5d810642f21cc3cccaa59f654",
                 "shasum": ""
             },
             "require": {
@@ -2213,6 +2213,7 @@
                 "friendsofphp/php-cs-fixer": "^3.1",
                 "phpstan/phpstan": "^0.12"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -2234,9 +2235,9 @@
             ],
             "support": {
                 "issues": "https://github.com/tomrf/autowire/issues",
-                "source": "https://github.com/tomrf/autowire/tree/0.0.2"
+                "source": "https://github.com/tomrf/autowire/tree/master"
             },
-            "time": "2021-10-22T22:48:38+00:00"
+            "time": "2021-10-22T23:04:00+00:00"
         },
         {
             "name": "twig/twig",
@@ -4179,7 +4180,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "tomrf/autowire": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

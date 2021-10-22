@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mikrofraim\ServiceProvider;
 
 use Mikrofraim\ServiceProvider;
-use Tomrf\Autowire\Autowire;
+use Mikrofraim\Service\Autowire\Autowire;
 
 class AutowireProvider extends ServiceProvider
 {
