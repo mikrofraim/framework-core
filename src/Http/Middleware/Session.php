@@ -24,7 +24,7 @@ class Session extends Middleware
         RequestHandlerInterface $handler,
     ): ResponseInterface {
         try {
-            if (\session_status() === \PHP_SESSION_NONE) {
+            if (\PHP_SESSION_NONE === \session_status()) {
                 \session_start();
             }
         } catch (\Exception $e) {
@@ -41,17 +41,17 @@ class Session extends Middleware
                         \mkdir($directory);
                     } catch (\Exception $e) {
                         throw new \Exception('could not create directory for fallback session save handler: '
-                            . $e->getMessage(), );
+                            .$e->getMessage(), );
                     }
                 }
 
                 $this->logger->warning('failed to create session, trying configured fallback handler: '
-                    . $this->config->get('middleware.session.fallback_handler'), );
+                    .$this->config->get('middleware.session.fallback_handler'), );
 
                 return $this->process($request, $handler);
             }
 
-            throw new \Exception('could not create session: ' . $e->getMessage());
+            throw new \Exception('could not create session: '.$e->getMessage());
         }
 
         return $handler->handle($request);

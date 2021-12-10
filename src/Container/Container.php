@@ -8,10 +8,17 @@ class Container implements \Psr\Container\ContainerInterface
 {
     protected array $container = [];
 
+    public function __construct(array $initialContent = [])
+    {
+        foreach ($initialContent as $id => $value) {
+            $this->set($id, $value);
+        }
+    }
+
     public function get(string $id): mixed
     {
         if (!isset($this->container[$id])) {
-            throw new NotFoundException('container does not contain ' . $id);
+            throw new NotFoundException('Container does not contain ' . $id);
         }
 
         return $this->container[$id];
@@ -19,11 +26,7 @@ class Container implements \Psr\Container\ContainerInterface
 
     public function has(string $id): bool
     {
-        if (isset($this->container[$id])) {
-            return true;
-        }
-
-        return false;
+        return isset($this->container[$id]);
     }
 
     public function set(string $id, mixed $value): mixed

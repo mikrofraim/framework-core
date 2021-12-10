@@ -10,8 +10,6 @@ use Monolog\Handler\StreamHandler;
 
 class Monolog extends ServiceProvider
 {
-    public string $alias = 'monolog';
-
     public function createService(): \Psr\Log\LoggerInterface
     {
         /* log stream */

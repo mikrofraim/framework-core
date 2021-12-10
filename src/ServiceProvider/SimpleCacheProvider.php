@@ -16,8 +16,6 @@ use Psr\SimpleCache\CacheInterface;
 
 class SimpleCacheProvider extends ServiceProvider
 {
-    public string $alias = 'cache';
-
     public function createService(): CacheInterface
     {
         $cacheAdapter = $this->config->get(

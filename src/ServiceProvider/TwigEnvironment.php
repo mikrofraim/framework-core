@@ -8,8 +8,6 @@ use Mikrofraim\ServiceProvider;
 
 class TwigEnvironment extends ServiceProvider
 {
-    public string $alias = 'twig';
-
     public function createService(\Twig\Loader\FilesystemLoader $twigLoader): \Twig\Environment
     {
         $debug = $this->config->get('service.twig.debug', false);

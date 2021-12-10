@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Mikrofraim\Http;
 
-use Laminas\Escaper\Escaper;
-use Laminas\Stratigility\Utils;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Throwable;

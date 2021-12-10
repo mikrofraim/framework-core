@@ -4,21 +4,26 @@ declare(strict_types=1);
 
 namespace Mikrofraim\Http;
 
-use Laminas\HttpHandlerRunner\Emitter\EmitterInterface;
-use Laminas\HttpHandlerRunner\Emitter\SapiEmitterTrait;
 use Psr\Http\Message\ResponseInterface;
 
-class SapiEmitter implements EmitterInterface
+class SapiEmitter
 {
-    use SapiEmitterTrait;
     private $termColor = 92;
 
     public function emit(ResponseInterface $response): bool
     {
-        $this->assertNoPreviousOutput();
+        // $this->assertNoPreviousOutput();
 
-        $this->emitHeaders($response);
-        $this->emitStatusLine($response);
+        header(sprintf(
+            'HTTP/%s %d %s',
+            $response->getProtocolVersion(),
+            $response->getStatusCode(),
+            $response->getReasonPhrase()
+        ));
+
+        foreach ($response->getHeaders() as $key => $values) {
+            header($key.': '.\implode(', ', $values));
+        }
 
         if (\PHP_SAPI === 'cli') {
             if ($response->getStatusCode() > 399) {
@@ -28,7 +33,8 @@ class SapiEmitter implements EmitterInterface
             }
 
             $this->echo(\sprintf(
-                '* HTTP %d %s',
+                '* HTTP/%s %d %s',
+                $response->getProtocolVersion(),
                 $response->getStatusCode(),
                 $response->getReasonPhrase(),
             ));
@@ -36,7 +42,7 @@ class SapiEmitter implements EmitterInterface
             $this->echo('* Headers');
 
             foreach ($response->getHeaders() as $key => $values) {
-                $this->echo('*   ' . $key . ': ' . \implode(', ', $values));
+                $this->echo('*   '.$key.': '.\implode(', ', $values));
             }
 
             $this->echo('* Body');
@@ -44,7 +50,7 @@ class SapiEmitter implements EmitterInterface
             $this->emitBody($response);
 
             $response->getBody()->rewind();
-            $this->echo('* End of response body (' . \mb_strlen($response->getBody()->getContents()) . ' bytes emitted)');
+            $this->echo('* End of response body ('.\mb_strlen($response->getBody()->getContents()).' bytes emitted)');
         } else {
             $this->emitBody($response);
         }
@@ -55,7 +61,7 @@ class SapiEmitter implements EmitterInterface
     private function echo(...$args): void
     {
         foreach ($args as $arg) {
-            echo "\033[" . $this->termColor . "m {$arg} \033[0m";
+            echo "\033[".$this->termColor."m {$arg} \033[0m";
         }
         echo \PHP_EOL;
     }

@@ -21,48 +21,86 @@ class ApplicationConfig extends Container
 
     public function query(string $query)
     {
-        $query = \str_replace('\\*', '.*?', \preg_quote($query, '/'));
-        $query = \preg_grep('/^' . $query . '$/i', \array_keys($this->container));
-
-        return \array_intersect_key($this->container, \array_flip($query));
+        return $this->queryArray($query, $this->container);
     }
 
-    public function setFromArray(array $array, $parent = null): void
+    public function setFromArray(array $array): void
     {
-        foreach ($array as $key => $value) {
-            if (\is_array($value)) {
-                $parentKey = $key;
+        foreach ($this->flattenArray($array) as $key => $value) {
+            $this->set($key, $value);
+        }
+    }
 
-                if ($parent) {
-                    $parentKey = $parent . '.' . $key;
-                }
-
-                $this->setFromArray($value, $parentKey);
-            } else {
-                $configKey = $key;
-
-                if ($parent) {
-                    $configKey = $parent . '.' . $key;
-                }
-
-                $this->set($configKey, $value);
-            }
+    public function setPhpIniFromConfig(array $configArray): void
+    {
+        foreach ($this->flattenArray($configArray) as $key => $value) {
+            $this->setPhpIni($key, $value);
         }
     }
 
     public function setPhpIni(string $key, mixed $value): void
     {
         try {
-            if (\ini_set($key, $value) === false) {
-                throw new FrameworkException('ini_set() failed for option: ' . $key);
+            if (false === \ini_set($key, $value)) {
+                throw new FrameworkException('ini_set() failed for option: '.$key);
             }
         } catch (\Exception $e) {
-            throw new FrameworkException('Could not set PHP ini option: ' . $key . ': ' . $e->getMessage());
+            throw new FrameworkException('Could not set PHP ini option: '.$key.': '.$e->getMessage());
         }
     }
 
     public function getPhpIni(string $key): string|false
     {
         return \ini_get($key);
+    }
+
+    public static function env($key, $default = null): mixed
+    {
+        if (!isset($_ENV[$key])) {
+            return $default;
+        }
+
+        $value = $_ENV[$key];
+
+        if ('true' === \mb_strtolower($value) || 'false' === \mb_strtolower($value)) {
+            $value = \filter_var($value, \FILTER_VALIDATE_BOOL);
+        }
+
+        return $value;
+    }
+
+    private function flattenArray(array $arrayPtr, $parentPtr = null): array
+    {
+        $flat = [];
+
+        foreach ($arrayPtr as $key => $value) {
+            if (\is_array($value)) {
+                $parentKey = $key;
+
+                if ($parentPtr) {
+                    $parentKey = $parentPtr.'.'.$key;
+                }
+
+                $flat = array_merge($flat, $this->flattenArray($value, $parentKey));
+            } else {
+                $configKey = $key;
+
+                if ($parentPtr) {
+                    $configKey = $parentPtr.'.'.$key;
+                }
+
+                $flat[$configKey] = $value;
+            }
+        }
+
+        return $flat;
+    }
+
+    private function queryArray(string $query, array $array)
+    {
+        $query = \str_replace('\\*', '.*?', \preg_quote($query, '/'));
+        $query = \preg_grep('/^'.$query.'$/i', \array_keys($array));
+
+        return \array_intersect_key($array, \array_flip($query));
     }
 }
