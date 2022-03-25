@@ -11,5 +11,8 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 abstract class Middleware implements MiddlewareInterface
 {
-    abstract public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface;
+    abstract public function process(
+        ServerRequestInterface $request,
+        RequestHandlerInterface $handler
+    ): ResponseInterface;
 }
