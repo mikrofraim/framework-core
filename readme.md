@@ -10,5 +10,5 @@ PHP 8.x
 
 ## License
 
-Mikrofraim is licensed under the Modified BSD License (The 3-Clause BSD License)
+Mikrofraim is released under the MIT License
 

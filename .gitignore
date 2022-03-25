@@ -2,5 +2,5 @@ vendor/
 .idea/
 .phan/
 .vscode/
-.env
+.history/
 .php-cs-fixer.cache
