@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Mikrofraim\Http\Middleware;
 
-use Mikrofraim\Container\Container;
 use Mikrofraim\Http\Middleware;
 use Mikrofraim\Http\Router\FastRouteRouter;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Log\LoggerInterface;
 
 class FastRoute extends Middleware
 {
     public function __construct(
-        private \Mikrofraim\ApplicationConfig $config,
-        private \Mikrofraim\Service\Autowire\Autowire $autowire,
-        private FastRouteRouter $router
+        private \Twig\Environment $twig,
+        private LoggerInterface $logger,
+        private FastRouteRouter $router,
     ) {
     }
 
@@ -53,18 +53,17 @@ class FastRoute extends Middleware
                 $class = $handler[0];
                 $method = $handler[1];
 
-                $dependencies = $this->autowire->resolveDependencies($class, '__construct', [
-                    new Container([
-                        'Psr\Http\Message\ServerRequestInterface' => $request,
-                    ]),
-                ]);
+                $dependencies = [
+                    $request,
+                    $this->twig,
+                    $this->logger,
+                ];
 
                 $controller = new $class(...$dependencies);
 
                 return $controller->{$method}(...$params);
         }
 
-        // return response
         return $handler->handle($request);
     }
 }

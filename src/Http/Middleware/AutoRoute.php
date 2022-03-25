@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use Mikrofraim\Container\Container;
 use Mikrofraim\Http\Middleware;
-use Mikrofraim\Service\Autowire\Autowire;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 class AutoRoute extends Middleware implements MiddlewareInterface
 {
     public function __construct(
-        private Autowire $autowire
+        private \Twig\Environment $twig,
+        private LoggerInterface $logger,
     ) {
     }
 
@@ -35,12 +35,7 @@ class AutoRoute extends Middleware implements MiddlewareInterface
         );
 
         $router = $autoRoute->getRouter();
-
-        try {
-            $route = $router->route($method, $uri);
-        } catch (\Exception $e) {
-            exit((string) $e);
-        }
+        $route = $router->route($method, $uri);
 
         if ($route->error) {
             $response = null;
@@ -48,25 +43,26 @@ class AutoRoute extends Middleware implements MiddlewareInterface
             switch ($route->error) {
                 case \AutoRoute\Exception\InvalidArgument::class:
                     $response = new Response(400);
-                    $response->getBody()->write('HTTP 400 Bad Request'.PHP_EOL);
+                    $response->getBody()->write('HTTP 400 Bad Request');
+
+                    break;
+
+                case \AutoRoute\Exception\MethodNotAllowed::class:
+                    $response = new Response(405);
+                    $response->getBody()->write('HTTP 405 Method Not Allowed');
 
                     break;
 
                 case \AutoRoute\Exception\NotFound::class:
-                case \AutoRoute\Exception\MethodNotAllowed::class:
-                    // $response = new Response($stream, 404);
-                    // $response->getBody()->write('HTTP 404 Not Found'.PHP_EOL);
-
                     return $handler->handle($request);
-
-                    break;
 
                 default:
                     if ($route->exception instanceof Throwable) {
                         throw $route->exception;
                     }
+
                     $response = new Response(500);
-                    $response->getBody()->write('HTTP 500 Internal Server Error'.PHP_EOL);
+                    $response->getBody()->write('HTTP 500 Internal Server Error');
 
                     break;
             }
@@ -74,11 +70,11 @@ class AutoRoute extends Middleware implements MiddlewareInterface
             return $response;
         }
 
-        $dependencies = $this->autowire->resolveDependencies($route->class, '__construct', [
-            new Container([
-                'Psr\Http\Message\ServerRequestInterface' => $request,
-            ]),
-        ]);
+        $dependencies = [
+            $request,
+            $this->twig,
+            $this->logger,
+        ];
 
         $controller = new $route->class(...$dependencies);
 
