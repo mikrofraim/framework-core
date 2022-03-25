@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3ff78d15cdcdf77b121a6d95ec333a3",
+    "content-hash": "5ddd359207b430a5d5fc2bcc187e4ee3",
     "packages": [
         {
             "name": "cache/adapter-common",
@@ -2050,16 +2050,16 @@
         },
         {
             "name": "tomrf/autowire",
-            "version": "dev-master",
+            "version": "0.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tomrf/autowire.git",
-                "reference": "a30d1262f18a73f8392fc0c78aef745231217c30"
+                "reference": "44649bc084994ea2c6c1962f7d8941b77f3dd0ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tomrf/autowire/zipball/a30d1262f18a73f8392fc0c78aef745231217c30",
-                "reference": "a30d1262f18a73f8392fc0c78aef745231217c30",
+                "url": "https://api.github.com/repos/tomrf/autowire/zipball/44649bc084994ea2c6c1962f7d8941b77f3dd0ec",
+                "reference": "44649bc084994ea2c6c1962f7d8941b77f3dd0ec",
                 "shasum": ""
             },
             "require": {
@@ -2067,11 +2067,10 @@
                 "psr/container": "^1.1"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.1",
-                "phpstan/phpstan": "^0.12",
+                "friendsofphp/php-cs-fixer": "^3.8",
+                "phpstan/phpstan": "^1.5",
                 "roave/security-advisories": "dev-latest"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -2080,7 +2079,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause"
+                "MIT"
             ],
             "description": "helps autowire dependency injection from PSR-11 containers",
             "homepage": "http://github.com/tomrf/autowire",
@@ -2093,22 +2092,22 @@
             ],
             "support": {
                 "issues": "https://github.com/tomrf/autowire/issues",
-                "source": "https://github.com/tomrf/autowire/tree/0.0.3"
+                "source": "https://github.com/tomrf/autowire/tree/0.0.4"
             },
-            "time": "2021-12-29T17:07:39+00:00"
+            "time": "2022-03-25T02:32:55+00:00"
         },
         {
             "name": "twig/twig",
-            "version": "v3.3.8",
+            "version": "v3.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "972d8604a92b7054828b539f2febb0211dd5945c"
+                "reference": "6ff9b0e440fa66f97f207e181c41340ddfa5683d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/972d8604a92b7054828b539f2febb0211dd5945c",
-                "reference": "972d8604a92b7054828b539f2febb0211dd5945c",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/6ff9b0e440fa66f97f207e181c41340ddfa5683d",
+                "reference": "6ff9b0e440fa66f97f207e181c41340ddfa5683d",
                 "shasum": ""
             },
             "require": {
@@ -2159,7 +2158,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.3.8"
+                "source": "https://github.com/twigphp/Twig/tree/v3.3.9"
             },
             "funding": [
                 {
@@ -2171,7 +2170,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-02-04T06:59:48+00:00"
+            "time": "2022-03-25T09:37:52+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -3874,9 +3873,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "tomrf/autowire": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
