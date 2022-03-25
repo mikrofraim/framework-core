@@ -1,12 +1,10 @@
-## Mikrofraim
+# mikrofraim/framework-core
+
+Core library for [mikrofraim/mikrofraim](https://github.com/mikrofraim/mikrofraim)
 
 ## Requirements
 
 PHP 8.x
-
-## Installation
-
-## Framework structure
 
 ## License
 
