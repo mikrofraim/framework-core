@@ -21,15 +21,15 @@ class ApplicationContainer implements \Psr\Container\ContainerInterface
     public function get(string $id): mixed
     {
         if (!$this->has($id)) {
-            throw new NotFoundException('Not found: ' . $id);
+            throw new NotFoundException('Not found: '.$id);
         }
 
         $id = $this->trueId($id);
 
         if (\is_subclass_of($this->container[$id], ServiceProvider::class)) {
-            /* convert service provider into callable service creator */
+            // convert service provider into callable service creator
             $reflection = new ReflectionClass($this->container[$id]);
-            $this->container[$id] = $reflection?->getMethod('createService')?->getClosure($this->container[$id]);
+            $this->container[$id] = $reflection->getMethod('createService')->getClosure($this->container[$id]);
         }
 
         if (\is_callable($this->container[$id])) {
@@ -54,18 +54,12 @@ class ApplicationContainer implements \Psr\Container\ContainerInterface
 
     public function addProvider(ServiceProvider $provider): void
     {
-        try {
-            $reflection = new ReflectionClass($provider);
-        } catch (\Exception $e) {
-            throw new \Mikrofraim\Exception\FrameworkException(
-                'could not reflect ServiceProvider: ' . $e->getMessage(),
-            );
-        }
+        $reflection = new ReflectionClass($provider);
 
-        if ($reflection->hasMethod('createService') === false) {
+        if (false === $reflection->hasMethod('createService')) {
             throw new \Mikrofraim\Exception\FrameworkException(
                 'ServiceProvider does not have createService() method: '
-                . $reflection->getName(),
+                .$reflection->getName(),
             );
         }
 
@@ -73,19 +67,13 @@ class ApplicationContainer implements \Psr\Container\ContainerInterface
             getReturnType()->getName();
 
         $this->container[$serviceClassName] = $provider;
-
-        $alias = $provider->getAlias() ?? null;
-
-        if (null !== $alias) {
-            $this->alias[$alias] = $serviceClassName;
-        }
     }
 
     public function set(string $id, mixed $value, ?string $alias = null): void
     {
         $this->container[$id] = $value;
 
-        /* assign alias if specified */
+        // assign alias if specified
         if (null !== $alias) {
             $this->alias[$alias] = $id;
         }
@@ -93,8 +81,8 @@ class ApplicationContainer implements \Psr\Container\ContainerInterface
 
     public function add(string $id, mixed $value, ?string $alias = null): void
     {
-        if ($this->has($id) !== null) {
-            throw new FrameworkException('Can not add, container already has ' . $id);
+        if (false !== $this->has($id)) {
+            throw new FrameworkException('Can not add, container already has '.$id);
         }
 
         $this->set($id, $value, $alias);
