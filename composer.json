@@ -28,7 +28,8 @@
         "tomrf/autowire": "0.0.4",
         "nyholm/psr7-server": "^1.0",
         "nyholm/psr7": "^1.5",
-        "relay/relay": "^2.1"
+        "relay/relay": "^2.1",
+        "pmjones/auto-route": "^2.1"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.5",

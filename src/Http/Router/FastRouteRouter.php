@@ -7,7 +7,7 @@ namespace Mikrofraim\Http\Router;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 
-class FastRouteRouter extends AbstractRouter
+class FastRouteRouter
 {
     // @var Dispatcher
     private Dispatcher $dispatcher;
