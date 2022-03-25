@@ -19,7 +19,7 @@ class NotFound extends Middleware
         $response = new Response();
 
         $response = $response->withStatus(404);
-        $response->getBody()->write('HTTP 404 Not Found'.\PHP_EOL);
+        $response->getBody()->write('HTTP 404 Not Found');
 
         return $response;
     }

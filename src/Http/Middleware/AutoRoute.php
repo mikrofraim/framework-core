@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Middleware;
+namespace Mikrofraim\Http\Middleware;
 
 use Mikrofraim\Http\Middleware;
 use Nyholm\Psr7\Response;
@@ -30,7 +30,7 @@ class AutoRoute extends Middleware implements MiddlewareInterface
 
         $autoRoute = new \AutoRoute\AutoRoute(
             namespace: 'App\\Http\\AutoRoute',
-            directory: \dirname(__DIR__).'/AutoRoute',
+            directory: '../app/Http/AutoRoute',
             method: 'handle'
         );
 

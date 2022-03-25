@@ -19,13 +19,6 @@ class TwigEnvironment extends ServiceProvider
             'debug' => $debug,
         ]);
 
-        // add useful globals
-        $twig->addGlobal('global', [
-            'server' => $_SERVER,
-            'session' => $_SESSION,
-            'request' => $_REQUEST,
-        ]);
-
         // add dump function using var-dumper
         $twig->addFunction(new \Twig\TwigFunction('dump', static function ($variable) {
             $cloner = new \Symfony\Component\VarDumper\Cloner\VarCloner();
