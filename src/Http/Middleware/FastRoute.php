@@ -12,7 +12,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class Router extends Middleware
+class FastRoute extends Middleware
 {
     public function __construct(
         private \Mikrofraim\ApplicationConfig $config,
