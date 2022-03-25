@@ -8,9 +8,9 @@ use Mikrofraim\Container\Container;
 use Mikrofraim\Container\NotFoundException;
 use Mikrofraim\Exception\FrameworkException;
 use Mikrofraim\Service\Autowire\Autowire;
-use Mikrofraim\ServiceProvider;
 use ReflectionClass;
 use ReflectionFunction;
+use ReflectionNamedType;
 use ReflectionObject;
 
 class ServiceContainer extends Container implements \Psr\Container\ContainerInterface
@@ -22,14 +22,14 @@ class ServiceContainer extends Container implements \Psr\Container\ContainerInte
      */
     public function get(string $id): mixed
     {
-        if ($this->has($id) === false) {
-            throw new NotFoundException('Not found: ' . $id);
+        if (false === $this->has($id)) {
+            throw new NotFoundException('Not found: '.$id);
         }
 
         if (\is_subclass_of($this->container[$id], ServiceProvider::class)) {
-            /* convert service provider into callable service creator */
+            // convert service provider into callable service creator
             $reflection = new ReflectionClass($this->container[$id]);
-            $this->container[$id] = $reflection?->getMethod('createService')?->getClosure($this->container[$id]);
+            $this->container[$id] = $reflection->getMethod('createService')->getClosure($this->container[$id]);
         }
 
         if (\is_callable($this->container[$id])) {
@@ -39,20 +39,6 @@ class ServiceContainer extends Container implements \Psr\Container\ContainerInte
         return $this->container[$id];
     }
 
-    private function getReturnTypeOfObjectMethod(object $object, string $method)
-    {
-        try {
-            $reflectionObject = new ReflectionObject($object);
-            $reflectionMethod = $reflectionObject->getMethod($method);
-            $returnType = $reflectionMethod->getReturnType();
-            $returnTypeName = $returnType->getName();
-        } catch (\ReflectionException $e) {
-            return null;
-        }
-
-        return $returnTypeName;
-    }
-
     public function addServiceProvider(ServiceProvider $serviceProvider, string $serviceCreatorMethodName = 'createService'): void
     {
         $serviceName = $this->getReturnTypeOfObjectMethod(
@@ -60,10 +46,10 @@ class ServiceContainer extends Container implements \Psr\Container\ContainerInte
             $serviceCreatorMethodName
         );
 
-        if ($serviceName === null) {
+        if (null === $serviceName) {
             throw new FrameworkException(
                 'Unable to get service name from return type of method "'
-                . $serviceCreatorMethodName . '" in service provider ' . \get_class($serviceProvider)
+                .$serviceCreatorMethodName.'" in service provider '.\get_class($serviceProvider)
             );
         }
 
@@ -77,8 +63,8 @@ class ServiceContainer extends Container implements \Psr\Container\ContainerInte
 
     public function add(string $id, mixed $value): mixed
     {
-        if ($this->has($id) === true) {
-            throw new FrameworkException('Container already contains ' . $id);
+        if (true === $this->has($id)) {
+            throw new FrameworkException('Container already contains '.$id);
         }
 
         return $this->set($id, $value);
@@ -91,6 +77,21 @@ class ServiceContainer extends Container implements \Psr\Container\ContainerInte
         }
     }
 
+    private function getReturnTypeOfObjectMethod(object $object, string $method)
+    {
+        try {
+            $reflectionObject = new ReflectionObject($object);
+            $reflectionMethod = $reflectionObject->getMethod($method);
+            /** @var ReflectionNamedType */
+            $returnType = $reflectionMethod->getReturnType();
+            $returnTypeName = $returnType->getName();
+        } catch (\ReflectionException $e) {
+            return null;
+        }
+
+        return $returnTypeName;
+    }
+
     private function resolve($id): mixed
     {
         $item = $this->container[$id];
@@ -100,7 +101,7 @@ class ServiceContainer extends Container implements \Psr\Container\ContainerInte
         }
 
         $reflection = new ReflectionFunction($item);
-        if ($reflection->getNumberOfParameters() === 0) {
+        if (0 === $reflection->getNumberOfParameters()) {
             return $item();
         }
 
@@ -110,7 +111,7 @@ class ServiceContainer extends Container implements \Psr\Container\ContainerInte
         $dependencies = $autowire->resolveDependencies(
             $this->container[$id],
             '__construct',
-            [ $this ]
+            [$this]
         );
 
         return $item(

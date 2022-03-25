@@ -19,14 +19,14 @@ class TwigEnvironment extends ServiceProvider
             'debug' => $debug,
         ]);
 
-        /* add useful globals */
+        // add useful globals
         $twig->addGlobal('global', [
-            'server' => $_SERVER ?? null,
-            'session' => $_SESSION ?? null,
-            'request' => $_REQUEST ?? null,
+            'server' => $_SERVER,
+            'session' => $_SESSION,
+            'request' => $_REQUEST,
         ]);
 
-        /* add dump function using vardumper */
+        // add dump function using var-dumper
         $twig->addFunction(new \Twig\TwigFunction('dump', static function ($variable) {
             $cloner = new \Symfony\Component\VarDumper\Cloner\VarCloner();
             $dumper = new \Symfony\Component\VarDumper\Dumper\HtmlDumper();
@@ -38,11 +38,6 @@ class TwigEnvironment extends ServiceProvider
 
             return $output;
         }));
-
-        /* add getenv function for convenient access to the environment */
-        // $twig->addFunction(new \Twig\TwigFunction('getenv', static function ($variableName) {
-        //     return $_ENV[$variableName];
-        // }));
 
         return $twig;
     }
